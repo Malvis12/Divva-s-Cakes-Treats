@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divva's Cakes & Treats</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E3A8A',
+                        secondary: '#FF69B4',
+                        background: '#FFFFFF',
+                        text: '#333333'
+                    },
+                    fontFamily: {
+                        heading: ['Poppins', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .carousel-item {
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #FF69B4;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-body bg-background text-text">
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/2348157002959" target="_blank" class="floating-btn bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-all">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Header -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-birthday-cake text-secondary text-2xl mr-2"></i>
+                <h1 class="font-heading text-xl font-bold">Divva's Cakes & Treats</h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active font-medium">Home</a>
+                <a href="#about" class="nav-link font-medium">About</a>
+                <a href="#services" class="nav-link font-medium">Services</a>
+                <a href="#gallery" class="nav-link font-medium">Gallery</a>
+                <a href="#order" class="nav-link font-medium">Order</a>
+                <a href="#contact" class="nav-link font-medium">Contact</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primary pb-4">
+            <div class="container mx-auto px-4 flex flex-col space-y-3">
+                <a href="#home" class="block py-2 nav-link active">Home</a>
+                <a href="#about" class="block py-2 nav-link">About</a>
+                <a href="#services" class="block py-2 nav-link">Services</a>
+                <a href="#gallery" class="block py-2 nav-link">Gallery</a>
+                <a href="#order" class="block py-2 nav-link">Order</a>
+                <a href="#contact" class="block py-2 nav-link">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen flex items-center overflow-hidden">
+            <!-- background image (z-0) -->
+            <div class="absolute inset-0 z-0" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center;"></div>
+            <!-- overlay (z-10) -->
+            <div class="absolute inset-0 bg-gray-900 opacity-50 z-10"></div>
+            
+            <!-- content above overlay (z-20) -->
+            <div class="container mx-auto px-4 relative z-20 text-center text-white fade-in">
+                <h1 class="font-heading text-4xl md:text-6xl font-bold mb-4">Sweetness Baked to Perfection</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Delicious cakes, treats & catering services in Benin City.</p>
+                <a href="#order" class="inline-block bg-secondary hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">
+                    Order Now
+                </a>
+            </div>
+        </section>
+
+        <!-- Services Preview -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Our Services</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12">
+                    <div class="service-card bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-birthday-cake text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-semibold">Cakes</h3>
+                    </div>
+                    
+                    <div class="service-card bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-utensils text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-semibold">Luxury Food Trays</h3>
+                    </div>
+                    
+                    <div class="service-card bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-hamburger text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-semibold">Small Chops</h3>
+                    </div>
+                    
+                    <div class="service-card bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-gift text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-semibold">Surprise Packages</h3>
+                    </div>
+                    
+                    <div class="service-card bg-white p-6 rounded-xl shadow-md text-center transition-all duration-300">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-bread-slice text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-semibold">Pastries</h3>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="#services" class="inline-block bg-primary hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                        View All Services
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                        <div class="rounded-xl overflow-hidden shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="About Divva's Cakes & Treats" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h2 class="font-heading text-3xl md:text-4xl font-bold mb-6 text-primary">About Divva's Cakes & Treats</h2>
+                        <p class="text-lg mb-6">We specialize in cakes, pastries, food trays, and event catering. Our motto is "Sweetness baked to perfection" and we are dedicated to making every celebration memorable.</p>
+                        <p class="text-lg mb-8">With years of experience in the culinary arts, our team creates delightful treats that bring joy to every occasion. From birthdays to weddings, corporate events to intimate gatherings, we're here to sweeten your special moments.</p>
+                        <div class="flex items-center">
+                            <div class="mr-4">
+                                <i class="fas fa-check-circle text-secondary text-2xl"></i>
+                            </div>
+                            <p class="text-lg">Premium ingredients for exceptional taste</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-primary">What We Offer</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Cakes" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold mb-2">Cakes</h3>
+                            <p class="mb-4">Custom-designed cakes for all occasions. From birthday celebrations to wedding masterpieces.</p>
+                            <a href="#order" class="text-secondary font-medium inline-flex items-center">
+                                Order now <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Food Trays" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold mb-2">Food Trays</h3>
+                            <p class="mb-4">Luxurious food presentation for events. Elegant arrangements that impress your guests.</p>
+                            <a href="#order" class="text-secondary font-medium inline-flex items-center">
+                                Order now <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Small Chops" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold mb-2">Small Chops</h3>
+                            <p class="mb-4">Delicious bite-sized treats perfect for parties and casual gatherings.</p>
+                            <a href="#order" class="text-secondary font-medium inline-flex items-center">
+                                Order now <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://media.istockphoto.com/id/183292444/photo/feet.jpg?s=612x612&w=0&k=20&c=A0AptQs72TdhV7ymQPa4qxlehG7VKpK9TNr2UWiCZOg=" alt="Pastries (sausage rolls)" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold mb-2">Pastries</h3>
+                            <p class="mb-4">Freshly baked pastries with a variety of flavors and textures.</p>
+                            <a href="#order" class="text-secondary font-medium inline-flex items-center">
+                                Order now <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNzWFbmvgfsxv0U5JA9FGt06Bf4dnxCKKKbQ&s" alt="Surprise Packages" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold mb-2">Surprise Packages</h3>
+                            <p class="mb-4">Thoughtfully curated gift boxes for special occasions and celebrations.</p>
+                            <a href="#order" class="text-secondary font-medium inline-flex items-center">
+                                Order now <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Event Décor" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-heading text-xl font-bold mb-2">Event Décor</h3>
+                            <p class="mb-4">Beautiful decorations that complement your cakes and treats for perfect events.</p>
+                            <a href="#order" class="text-secondary font-medium inline-flex items-center">
+                                Order now <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Our Gallery</h2>
+                
+                <div class="gallery-grid">
+                    <div class="overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Gallery 1" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Gallery 2" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Gallery 3" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="overflow-hidden rounded-xl shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Gallery 4" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Section -->
+        <section id="order" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Place Your Order</h2>
+                    
+                    <form id="orderForm" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Full Name *</label>
+                            <input type="text" id="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Phone Number *</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="service" class="block text-gray-700 font-medium mb-2">Select Service *</label>
+                            <select id="service" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+                                <option value="">Choose a service</option>
+                                <option value="Cake">Cake</option>
+                                <option value="Food Tray">Food Tray</option>
+                                <option value="Small Chops">Small Chops</option>
+                                <option value="Pastries">Pastries</option>
+                                <option value="Surprise Package">Surprise Package</option>
+                                <option value="Event Décor">Event Décor</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <label for="details" class="block text-gray-700 font-medium mb-2">Order Details *</label>
+                            <textarea id="details" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-secondary hover:bg-pink-500 text-white font-bold py-4 px-6 rounded-lg text-lg transition duration-300">
+                            Send Order via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-center mb-12 text-primary">Get In Touch</h2>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="md:flex">
+                            <div class="md:w-1/2 bg-primary text-white p-8">
+                                <h3 class="font-heading text-2xl font-bold mb-6">Contact Information</h3>
+                                
+                                <div class="mb-6 flex items-start">
+                                    <i class="fas fa-map-marker-alt text-secondary text-xl mt-1 mr-4"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Address</h4>
+                                        <p>Ugbowo, Benin City</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6 flex items-start">
+                                    <i class="fas fa-phone-alt text-secondary text-xl mt-1 mr-4"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Phone Numbers</h4>
+                                        <p class="mb-1">08157002959</p>
+                                        <p>07077245656</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-6 flex items-start">
+                                    <i class="fas fa-hashtag text-secondary text-xl mt-1 mr-4"></i>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-1">Social Media</h4>
+                                        <div class="flex space-x-4 mt-2">
+                                            <a href="https://instagram.com/divvascakesand_treats" target="_blank" class="bg-secondary w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-500 transition">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                            <a href="https://wa.me/2348157002959" target="_blank" class="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center hover:bg-green-600 transition">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="md:w-1/2 p-8">
+                                <h3 class="font-heading text-2xl font-bold mb-6 text-primary">Send us a Message</h3>
+                                <form>
+                                    <div class="mb-4">
+                                        <input type="text" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <input type="email" placeholder="Your Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="bg-primary hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                                        Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-birthday-cake text-secondary text-2xl mr-2"></i>
+                        <h2 class="font-heading text-xl font-bold">Divva's Cakes & Treats</h2>
+                    </div>
+                    <p class="mt-2 text-gray-300">Sweetness baked to perfection</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://instagram.com/divvascakesand_treats" target="_blank" class="text-white hover:text-secondary transition">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="https://wa.me/2348157002959" target="_blank" class="text-white hover:text-secondary transition">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Divva's Cakes & Treats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                // Update active link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Set active link based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Form submission handler
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const details = document.getElementById('details').value;
+            
+            const message = `Hello Divva's Cakes & Treats, I'd like to place an order:%0AName: ${name}%0APhone: ${phone}%0AService: ${service}%0ADetails: ${details}`;
+            const whatsappUrl = `https://wa.me/2348157002959?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+        });
+        
+        // Fade in elements when they come into view
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
